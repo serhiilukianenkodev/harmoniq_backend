@@ -15,7 +15,7 @@ export const getAllArticles = async ({ page = 1, perPage = 12 }) => {
   const paginationData = calculatePaginationData(articlesCount, perPage, page);
 
   return {
-    data: articles,
+    articles,
     ...paginationData,
   };
 };
