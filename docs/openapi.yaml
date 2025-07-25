@@ -39,7 +39,7 @@ paths:
       $ref: ../swagger/paths/articles/post.yaml
     get:
       $ref: ../swagger/paths/articles/get.yaml
-  /contacts/{id}:
+  /articles/{id}:
     get:
       $ref: ../swagger/paths/articles/{id}/get.yaml
     patch:

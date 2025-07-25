@@ -606,7 +606,7 @@
         }
       }
     },
-    "/contacts/{id}": {
+    "/articles/{id}": {
       "get": {
         "tags": [
           "Articles"
