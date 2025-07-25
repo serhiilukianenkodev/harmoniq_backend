@@ -1,8 +1,8 @@
 tags:
-  - Contacts
-summary: Delete contact
-operationId: deleteContact
-description: 'Delete contact with given id'
+  - Articles
+summary: Delete article
+operationId: deleteArticle
+description: 'Delete article with given id'
 security:
   - bearerAuth: []
 parameters:
@@ -14,7 +14,7 @@ parameters:
       example: '65ca67e7ae7f10c88b598384'
 responses:
   '204':
-    description: 'Contact delete'
+    description: 'Article delete'
 
   '401':
     $ref: '../../../components/responses/401.yaml'

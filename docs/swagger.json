@@ -2,22 +2,22 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "Contacts API",
+    "title": "Harmoniq API",
     "license": {
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "description": "This is a documentation of contacts app"
+    "description": "This is a documentation of Harmoniq app"
   },
   "servers": [
     {
-      "url": "https://nodejs-hw-mongodb-ihgx.onrender.com"
+      "url": "https://harmoniq-backend-qo0h.onrender.com"
     }
   ],
   "tags": [
     {
-      "name": "Contacts",
-      "description": "Operations about contacts."
+      "name": "Articles",
+      "description": "Operations about articles."
     },
     {
       "name": "Auth",
@@ -417,14 +417,14 @@
         }
       }
     },
-    "/contacts": {
+    "/articles": {
       "post": {
         "tags": [
-          "Contacts"
+          "Articles"
         ],
-        "summary": "Create contact",
-        "operationId": "createContact",
-        "description": "Create contact with payload",
+        "summary": "Create article",
+        "operationId": "createArticle",
+        "description": "Create article with payload",
         "security": [
           {
             "bearerAuth": []
@@ -436,43 +436,23 @@
               "schema": {
                 "type": "object",
                 "required": [
-                  "name",
-                  "phoneNumber",
-                  "contactType"
+                  "title",
+                  "desc",
+                  "photo"
                 ],
                 "properties": {
-                  "name": {
-                    "description": "Contact's name",
+                  "title": {
+                    "description": "Article's title",
                     "type": "string",
-                    "example": "Samantha Caroll"
+                    "example": "Some title"
                   },
-                  "phoneNumber": {
-                    "description": "Contact's phone number",
+                  "desc": {
+                    "description": "Article's description",
                     "type": "string",
-                    "example": "+380125457864"
-                  },
-                  "email": {
-                    "description": "Contact's email",
-                    "type": "string",
-                    "example": "my.mail@com"
-                  },
-                  "isFavourite": {
-                    "description": "Whether contact is favourite",
-                    "type": "boolean",
-                    "default": false
-                  },
-                  "contactType": {
-                    "description": "Contact's type",
-                    "type": "string",
-                    "enum": [
-                      "work",
-                      "home",
-                      "personal"
-                    ],
-                    "default": "personal"
+                    "example": "description lorem100"
                   },
                   "photo": {
-                    "description": "Contact photo",
+                    "description": "Article's photo",
                     "type": "string",
                     "format": "binary"
                   }
@@ -483,7 +463,7 @@
         },
         "responses": {
           "201": {
-            "description": "Contact created successfully",
+            "description": "Article created successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -500,11 +480,11 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully created contact!"
+                      "example": "Successfully created article!"
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/contact"
+                      "$ref": "#/components/schemas/article"
                     }
                   }
                 }
@@ -518,11 +498,11 @@
       },
       "get": {
         "tags": [
-          "Contacts"
+          "Articles"
         ],
-        "summary": "Get list of contacts",
-        "operationId": "getContacts",
-        "description": "Get list of contacts",
+        "summary": "Get list of articles",
+        "operationId": "getArticles",
+        "description": "Get list of articles with parination",
         "security": [
           {
             "bearerAuth": []
@@ -544,66 +524,15 @@
             "name": "perPage",
             "schema": {
               "type": "integer",
-              "default": 10,
-              "example": 10
+              "default": 12,
+              "example": 12
             },
-            "description": "Number of contacts per page"
-          },
-          {
-            "in": "query",
-            "name": "sortBy",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "name",
-                "phoneNumber",
-                "email",
-                "contactType",
-                "isFavourite"
-              ],
-              "example": "name"
-            },
-            "description": "Field to sort by"
-          },
-          {
-            "in": "query",
-            "name": "sortOrder",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "asc",
-                "desc"
-              ],
-              "example": "asc"
-            },
-            "description": "Sort order"
-          },
-          {
-            "in": "query",
-            "name": "isFaourite",
-            "schema": {
-              "type": "boolean",
-              "example": true
-            }
-          },
-          {
-            "in": "query",
-            "name": "type",
-            "schema": {
-              "type": "string",
-              "enum": [
-                "work",
-                "home",
-                "personal"
-              ],
-              "example": "personal",
-              "description": "Filter contacts by type"
-            }
+            "description": "Number of articles per page"
           }
         ],
         "responses": {
           "200": {
-            "description": "List of contacts retrieved successfully",
+            "description": "List of articles retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
@@ -620,12 +549,12 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully found contacts!"
+                      "example": "Successfully found articles!"
                     },
                     "data": {
                       "type": "object",
                       "required": [
-                        "contacts",
+                        "articles",
                         "page",
                         "perPage",
                         "totalItems",
@@ -634,10 +563,10 @@
                         "hasPreviousPage"
                       ],
                       "properties": {
-                        "contacts": {
+                        "articles": {
                           "type": "array",
                           "items": {
-                            "$ref": "#/components/schemas/contact"
+                            "$ref": "#/components/schemas/article"
                           }
                         },
                         "page": {
@@ -646,7 +575,7 @@
                         },
                         "perPage": {
                           "type": "integer",
-                          "example": 10
+                          "example": 12
                         },
                         "totalItems": {
                           "type": "integer",
@@ -680,11 +609,11 @@
     "/contacts/{id}": {
       "get": {
         "tags": [
-          "Contacts"
+          "Articles"
         ],
-        "summary": "Get contact by id",
-        "operationId": "getContact",
-        "description": "Get contact by id",
+        "summary": "Get article by id",
+        "operationId": "getArticleById",
+        "description": "Get article by id",
         "security": [
           {
             "bearerAuth": []
@@ -703,7 +632,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Get contact by id",
+            "description": "Get article by id",
             "content": {
               "application/json": {
                 "schema": {
@@ -724,7 +653,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/contact"
+                      "$ref": "#/components/schemas/article"
                     }
                   }
                 }
@@ -738,11 +667,11 @@
       },
       "patch": {
         "tags": [
-          "Contacts"
+          "Articles"
         ],
-        "summary": "Patch contact",
-        "operationId": "patchContact",
-        "description": "Create contact with payload",
+        "summary": "Patch article",
+        "operationId": "patchArticle",
+        "description": "Update the article with payload",
         "security": [
           {
             "bearerAuth": []
@@ -765,38 +694,18 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "description": "Contact's name",
+                  "title": {
+                    "description": "Article's title",
                     "type": "string",
-                    "example": "Samantha Caroll"
+                    "example": "Some title"
                   },
-                  "phoneNumber": {
-                    "description": "Contact's phone number",
+                  "desc": {
+                    "description": "Article's description",
                     "type": "string",
-                    "example": "+380125457864"
-                  },
-                  "email": {
-                    "description": "Contact's email",
-                    "type": "string",
-                    "example": "my.mail@com"
-                  },
-                  "isFavourite": {
-                    "description": "Whether contact is favourite",
-                    "type": "boolean",
-                    "default": false
-                  },
-                  "contactType": {
-                    "description": "Contact's type",
-                    "type": "string",
-                    "enum": [
-                      "work",
-                      "home",
-                      "personal"
-                    ],
-                    "default": "personal"
+                    "example": "description lorem100"
                   },
                   "photo": {
-                    "description": "Contact photo",
+                    "description": "Article's photo",
                     "type": "string",
                     "format": "binary"
                   }
@@ -807,7 +716,7 @@
         },
         "responses": {
           "200": {
-            "description": "Successfully patched a contact!",
+            "description": "Successfully patched the article!",
             "content": {
               "application/json": {
                 "schema": {
@@ -824,11 +733,11 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully patched contact!"
+                      "example": "Successfully patched the article!"
                     },
                     "data": {
                       "type": "object",
-                      "$ref": "#/components/schemas/contact"
+                      "$ref": "#/components/schemas/article"
                     }
                   }
                 }
@@ -845,11 +754,11 @@
       },
       "delete": {
         "tags": [
-          "Contacts"
+          "Articles"
         ],
-        "summary": "Delete contact",
-        "operationId": "deleteContact",
-        "description": "Delete contact with given id",
+        "summary": "Delete article",
+        "operationId": "deleteArticle",
+        "description": "Delete article with given id",
         "security": [
           {
             "bearerAuth": []
@@ -868,7 +777,7 @@
         ],
         "responses": {
           "204": {
-            "description": "Contact delete"
+            "description": "Article delete"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -953,7 +862,7 @@
                   "properties": {
                     "message": {
                       "type": "string",
-                      "example": "Contact not found"
+                      "example": "Article not found"
                     }
                   }
                 }
@@ -1001,58 +910,57 @@
       }
     },
     "schemas": {
-      "contact": {
+      "article": {
         "type": "object",
         "required": [
           "_id",
-          "name",
-          "phoneNumber",
-          "contactType"
+          "title",
+          "img",
+          "desc",
+          "rate",
+          "ownerId",
+          "date"
         ],
         "properties": {
           "_id": {
-            "description": "Contact's id",
+            "description": "Article's id",
             "type": "string",
-            "example": "65e4decdd286b30065d54af9"
+            "example": "688385d5fd28844fe82bc4b6"
           },
-          "name": {
-            "description": "Student's name",
+          "title": {
+            "description": "Article's title",
             "type": "string",
-            "example": "Samantha Caroll"
+            "example": "Some title"
           },
-          "phoneNumber": {
-            "description": "Contact's phone number",
+          "img": {
+            "description": "Link to article's image",
             "type": "string",
-            "example": "+380125457864"
+            "example": "https://res.cloudinary.com/dok3yyfgg/image/upload/v1753449944/g2glnvmdpwgyyuxfj6dl.jpg"
           },
-          "email": {
-            "description": "Contact's email",
+          "desc": {
+            "description": "Article's description",
             "type": "string",
-            "example": "my.mail@com"
+            "example": "description lorem100"
           },
-          "isFavourite": {
-            "description": "Whether contact is favourite",
-            "type": "boolean",
-            "example": false
+          "rate": {
+            "description": "Article's rate",
+            "type": "number",
+            "example": 0
           },
-          "contactType": {
-            "description": "Contact's type",
-            "type": "string",
-            "enum": [
-              "work",
-              "home",
-              "personal"
-            ]
-          },
-          "userId": {
-            "description": "Id of the user who created the contact",
+          "ownerId": {
+            "description": "Id of the user who created the article",
             "type": "string",
             "example": "65e4decdd286b30065d54af8"
           },
-          "photo": {
-            "description": "Link to contacts's photo",
+          "ownerName": {
+            "description": "Name of the user who created the article",
             "type": "string",
-            "example": "https://res.cloudinary.com/uqwgdu/image/upload/image.png"
+            "example": "John Doe"
+          },
+          "date": {
+            "description": "Article's creation date",
+            "type": "string",
+            "example": "2025-07-25"
           }
         }
       }

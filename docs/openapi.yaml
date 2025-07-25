@@ -1,19 +1,19 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: Contacts API
+  title: Harmoniq API
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description: This is a documentation of contacts app
+  description: This is a documentation of Harmoniq app
 tags:
-  - name: Contacts
-    description: Operations about contacts.
+  - name: Articles
+    description: Operations about articles.
   - name: Auth
     description: Auth operations.
 servers:
   # - url: http://localhost:3000
-  - url: https://nodejs-hw-mongodb-ihgx.onrender.com
+  - url: https://harmoniq-backend-qo0h.onrender.com
 paths:
   /auth/register:
     post:
@@ -34,18 +34,18 @@ paths:
     post:
       $ref: ../swagger/paths/auth/reset-pwd.yaml
 
-  /contacts:
+  /articles:
     post:
-      $ref: ../swagger/paths/contacts/post.yaml
+      $ref: ../swagger/paths/articles/post.yaml
     get:
-      $ref: ../swagger/paths/contacts/get.yaml
+      $ref: ../swagger/paths/articles/get.yaml
   /contacts/{id}:
     get:
-      $ref: ../swagger/paths/contacts/{id}/get.yaml
+      $ref: ../swagger/paths/articles/{id}/get.yaml
     patch:
-      $ref: ../swagger/paths/contacts/{id}/patch.yaml
+      $ref: ../swagger/paths/articles/{id}/patch.yaml
     delete:
-      $ref: ../swagger/paths/contacts/{id}/delete.yaml
+      $ref: ../swagger/paths/articles/{id}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:
