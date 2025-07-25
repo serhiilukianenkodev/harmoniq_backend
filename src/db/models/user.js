@@ -5,6 +5,7 @@ const usersSchema = new Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    savedArticles: [{ type: Schema.Types.ObjectId, ref: 'articles' }],
     createdAt: { type: Date },
     updatedAt: { type: Date },
   },
