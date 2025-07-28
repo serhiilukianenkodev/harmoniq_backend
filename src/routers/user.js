@@ -16,6 +16,7 @@ router.get('/:authorsId', ctrlWrapper(getUserByIdController));
 
 router.get(
   '/:authorsId/saved-articles',
+  authenticate,
   ctrlWrapper(getSavedArticlesController),
 );
 
