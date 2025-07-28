@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import { ArticlesCollection } from '../db/models/article.js';
 import { UsersCollection } from '../db/models/user.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
@@ -22,27 +21,19 @@ export const getAllUsers = async ({ page = 1, perPage = 20 }) => {
   };
 };
 
-// export const getUserById = async (userId) => {
-//   const objectId = new mongoose.Types.ObjectId(userId);
-//   const user = await UsersCollection.findOne({ _id: objectId });
-//   return user;
-// };
-
-export const getUserById = async (userId) => {
-  const user = await UsersCollection.findOne({ _id: userId });
+export const getUserById = async (authorsId) => {
+  const user = await UsersCollection.findById(authorsId);
   return user;
 };
 
-export const getSavedArticles = async (userId) => {
-  const _id = userId;
-  const user = await UsersCollection.findOne(_id);
-  const savedArticles = await ArticlesCollection.find({
-    _id: { $in: user.savedArticles },
-  });
-  return savedArticles;
+export const getSavedArticles = async (authorsId) => {
+  const user = await UsersCollection.findById(authorsId).populate(
+    'savedArticles',
+  );
+  return user.savedArticles;
 };
 
-export const getOwnArticles = async (userId) => {
-  const articles = await ArticlesCollection.find({ ownerId: userId });
+export const getOwnArticles = async (authorsId) => {
+  const articles = await ArticlesCollection.find({ ownerId: authorsId });
   return { articles };
 };
