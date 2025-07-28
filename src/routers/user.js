@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import {
   getAllUsersController,
-  getOwnArticlesController,
-  getSavedArticlesController,
+  getOwnArticlesByAuthorIdController,
+  getSavedArticlesByAuthorIdController,
   getUserByIdController,
+  removeSavedArticleByAuthorIdController,
+  saveArticleByAuthorIdController,
 } from '../controllers/user.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { authenticate } from '../middlewares/authenticate.js';
@@ -15,11 +17,23 @@ router.get('/', ctrlWrapper(getAllUsersController));
 router.get('/:authorsId', ctrlWrapper(getUserByIdController));
 
 router.get(
-  '/:authorsId/saved-articles',
+  '/saved-articles',
   authenticate,
-  ctrlWrapper(getSavedArticlesController),
+  ctrlWrapper(getSavedArticlesByAuthorIdController),
 );
 
-router.get('/:authorsId/articles', ctrlWrapper(getOwnArticlesController));
+router.post(
+  '/saved-articles/:articleId',
+  authenticate,
+  ctrlWrapper(saveArticleByAuthorIdController),
+);
+
+router.delete(
+  '/saved-articles/:articleId',
+  authenticate,
+  ctrlWrapper(removeSavedArticleByAuthorIdController),
+);
+
+router.get('/:authorsId/articles', ctrlWrapper(getOwnArticlesByAuthorIdController));
 
 export default router;

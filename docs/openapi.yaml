@@ -11,6 +11,8 @@ tags:
     description: Operations about articles.
   - name: Auth
     description: Auth operations.
+  - name: Users
+    description: Operations about users/author.
 servers:
   # - url: http://localhost:3000
   - url: https://harmoniq-backend-qo0h.onrender.com
@@ -46,6 +48,25 @@ paths:
       $ref: ../swagger/paths/articles/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/articles/{id}/delete.yaml
+
+  /authors:
+    get:
+      $ref: ../swagger/paths/users/getAllUsers.yaml
+  /authors/{id}:
+    get:
+      $ref: ../swagger/paths/users/getUsersById.yaml
+  /authors/saved-articles:
+    get:
+      $ref: ../swagger/paths/users/getSavedArticlesById.yaml
+  /authors/saved-articles/{id}:
+    patch:
+      $ref: ../swagger/paths/users/patchSavedArticlesById.yaml
+    delete:
+      $ref: ../swagger/paths/users/deleteSavedArticlesById.yaml
+  /authors/{id}/articles:
+    get:
+      $ref: ../swagger/paths/users/getArticlesById.yaml
+
 components:
   securitySchemes:
     bearerAuth:
