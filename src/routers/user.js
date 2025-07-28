@@ -34,6 +34,6 @@ router.delete(
   ctrlWrapper(removeSavedArticleByAuthorIdController),
 );
 
-router.get('/articles', ctrlWrapper(getOwnArticlesByAuthorIdController));
+router.get('/:authorsId/articles', ctrlWrapper(getOwnArticlesByAuthorIdController));
 
 export default router;

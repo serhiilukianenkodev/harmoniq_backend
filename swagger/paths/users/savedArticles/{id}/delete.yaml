@@ -1,0 +1,21 @@
+tags:
+  - Users
+summary: Delete user's saved article by id
+operationId: removeSavedArticleByAuthorId
+description: "Delete user's saved article by id"
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '688507eb52768403f159c9c2'
+responses:
+  '204':
+    description: 'Article removed from saved list'
+  '401':
+    $ref: '../../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../../components/responses/404.yaml'
