@@ -7,11 +7,13 @@ import { validateBody } from '../middlewares/validateBody.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { uploadUserPhotoSchema } from '../validation/user.js';
 import { upload } from '../middlewares/multer.js';
+import userRouter from './user.js';
 
 const router = Router();
 
 router.use('/articles', articlesRouter);
 router.use('/auth', authRouter);
+router.use('/authors', userRouter);
 router.post(
   '/user/photo',
   authenticate,
