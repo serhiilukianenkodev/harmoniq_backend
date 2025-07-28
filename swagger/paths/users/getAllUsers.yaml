@@ -50,7 +50,7 @@ responses:
                 contacts:
                   type: array
                   items:
-                    $ref: '../../../components/schemas/users.yaml'
+                    $ref: ../../components/schemas/users.yaml
                 page:
                   type: integer
                   example: 1
@@ -70,4 +70,4 @@ responses:
                   type: boolean
                   example: true
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: ../../components/responses/401.yaml

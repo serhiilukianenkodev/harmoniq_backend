@@ -32,8 +32,8 @@ responses:
               example: Article added to saved list!
             data:
               type: object
-              $ref: '../../../../components/schemas/users.yaml'
+              $ref: ../../components/schemas/users.yaml
   '401':
-    $ref: '../../../../components/responses/401.yaml'
+    $ref: ../../components/responses/401.yaml
   '404':
-    $ref: '../../../../components/responses/404.yaml'
+    $ref: ../../components/responses/404.yaml
