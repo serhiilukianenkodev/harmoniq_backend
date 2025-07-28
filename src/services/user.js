@@ -36,7 +36,7 @@ export const getUserById = async (userId) => {
 export const getSavedArticles = async (userId) => {
   const _id = userId;
   const user = await UsersCollection.findOne(_id);
-  const savedArticles = await UsersCollection.find({
+  const savedArticles = await ArticlesCollection.find({
     _id: { $in: user.savedArticles },
   });
   return savedArticles;
