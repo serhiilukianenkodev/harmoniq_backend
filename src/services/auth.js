@@ -11,10 +11,23 @@ export const registerUser = async (payload) => {
 
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
 
-  return await UsersCollection.create({
+  const accessToken = randomBytes(30).toString('base64');
+  const refreshToken = randomBytes(30).toString('base64');
+
+  const createdUser = await UsersCollection.create({
     ...payload,
     password: encryptedPassword,
   });
+
+  const session = await SessionsCollection.create({
+    userId: createdUser._id,
+    accessToken,
+    refreshToken,
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+  });
+
+  return { user: createdUser, session };
 };
 
 export const loginUser = async (payload) => {
@@ -40,7 +53,7 @@ export const loginUser = async (payload) => {
     accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
     refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
   });
-  return {user, session}
+  return { user, session };
 };
 
 export const logoutUser = async (sessionId) => {
@@ -79,9 +92,14 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
   const newSession = createSession();
 
   await SessionsCollection.deleteOne({ _id: sessionId, refreshToken });
-
-  return await SessionsCollection.create({
+  const updatedSession = await SessionsCollection.create({
     userId: session.userId,
     ...newSession,
   });
+
+  const user = await UsersCollection.findOne({
+    _id: session.userId,
+  });
+
+  return { user, session: updatedSession };
 };
