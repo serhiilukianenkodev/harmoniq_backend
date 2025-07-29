@@ -3,8 +3,7 @@ tags:
 summary: Get user/author by id
 operationId: getUserById
 description: 'Get user/author by id'
-security:
-  - bearerAuth: []
+security: []
 parameters:
   - in: query
     name: id

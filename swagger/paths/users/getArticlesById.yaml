@@ -3,8 +3,7 @@ tags:
 summary: Get own articles
 operationId: getOwnArticlesByAuthorId
 description: 'Get own articles'
-security:
-  - bearerAuth: []
+security: []
 parameters:
   - in: query
     name: id
