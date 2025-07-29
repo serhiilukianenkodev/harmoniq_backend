@@ -5,7 +5,7 @@ operationId: getUserById
 description: 'Get user/author by id'
 security: []
 parameters:
-  - in: query
+  - in: path
     name: id
     required: true
     schema:
@@ -30,9 +30,8 @@ responses:
               type: string
               example: 'Successfully found user with id 688507eb52768403f159c9c2!'
             data:
-              type: object
-              $ref: ../../components/schemas/users.yaml
+              $ref: ../../../components/schemas/users.yaml
   '401':
-    $ref: ../../components/responses/401.yaml
+    $ref: ../../../components/responses/401.yaml
   '404':
-    $ref: ../../components/responses/404.yaml
+    $ref: ../../../components/responses/404.yaml
