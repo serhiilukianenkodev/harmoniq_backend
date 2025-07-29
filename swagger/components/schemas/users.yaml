@@ -1,8 +1,8 @@
 type: object
 required:
+  - _id
   - name
   - email
-  - password
 properties:
   _id:
     description: "User's id"

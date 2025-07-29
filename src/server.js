@@ -13,7 +13,7 @@ const PORT = Number(getEnvVar('PORT', '3000'));
 
 export const setupServer = () => {
   const allowedOrigins = [
-    'https://harmoniq-app.vercel.app/',
+    'https://harmoniq-app.vercel.app',
     'http://localhost:5173',
   ];
 

@@ -3,6 +3,8 @@ tags:
 summary: Get all users/authors
 operationId: getAllUsers
 description: 'Get all users'
+security:
+  - bearerAuth: []
 parameters:
   - in: query
     name: page
@@ -47,7 +49,7 @@ responses:
                 - hasNextPage
                 - hasPreviousPage
               properties:
-                contacts:
+                users:
                   type: array
                   items:
                     $ref: ../../components/schemas/users.yaml
