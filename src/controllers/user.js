@@ -10,6 +10,11 @@ import {
 } from '../services/user.js';
 import { SessionsCollection } from '../db/models/session.js';
 
+import { updateUserPhoto } from '../services/user.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
+
 export const getAllUsersController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
 
@@ -102,12 +107,6 @@ export const getOwnArticlesByAuthorIdController = async (req, res) => {
     data: user,
   });
 };
-
-import { updateUserPhoto } from '../services/user.js';
-import { getEnvVar } from '../utils/getEnvVar.js';
-import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
-import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
-import { SessionsCollection } from '../db/models/session.js';
 
 export const updateUserPhotoController = async (req, res, next) => {
   const sessionId = req.cookies.sessionId;
