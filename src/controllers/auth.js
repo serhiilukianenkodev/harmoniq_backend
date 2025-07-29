@@ -18,9 +18,7 @@ export const registerUserController = async (req, res) => {
 };
 
 export const loginUserController = async (req, res) => {
-  console.log('loginUserController started');
   const { user, session } = await loginUser(req.body);
-  console.log('Session:', session);
 
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
