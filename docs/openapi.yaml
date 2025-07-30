@@ -29,12 +29,6 @@ paths:
   /auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refresh.yaml
-  /auth/send-reset-email:
-    post:
-      $ref: ../swagger/paths/auth/send-reset-email.yaml
-  /auth/reset-pwd:
-    post:
-      $ref: ../swagger/paths/auth/reset-pwd.yaml
 
   /articles:
     post:
