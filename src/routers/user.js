@@ -14,13 +14,13 @@ const router = Router();
 
 router.get('/', ctrlWrapper(getAllUsersController));
 
-router.get('/:authorsId', ctrlWrapper(getUserByIdController));
-
 router.get(
   '/saved-articles',
   authenticate,
   ctrlWrapper(getSavedArticlesByAuthorIdController),
 );
+
+router.get('/:authorsId', ctrlWrapper(getUserByIdController));
 
 router.post(
   '/saved-articles/:articleId',
@@ -34,6 +34,9 @@ router.delete(
   ctrlWrapper(removeSavedArticleByAuthorIdController),
 );
 
-router.get('/:authorsId/articles', ctrlWrapper(getOwnArticlesByAuthorIdController));
+router.get(
+  '/:authorsId/articles',
+  ctrlWrapper(getOwnArticlesByAuthorIdController),
+);
 
 export default router;
