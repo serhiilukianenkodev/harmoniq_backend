@@ -67,7 +67,7 @@ export const deleteSavedArticleForUser = async (authorsId, articleId) => {
 export const updateUserPhoto = async (userId, photoUrl) => {
   const user = await UsersCollection.findOneAndUpdate(
     { _id: userId },
-    { photo: photoUrl },
+    { avatarUrl: photoUrl },
     { new: true },
   );
 
