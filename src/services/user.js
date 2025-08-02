@@ -47,6 +47,10 @@ export const addSavedArticleForUser = async (authorsId, articleId) => {
   if (!user.savedArticles.includes(articleObjectId)) {
     user.savedArticles.push(articleObjectId);
     await user.save();
+
+    await ArticlesCollection.findByIdAndUpdate(articleObjectId, {
+      $inc: { rate: 1 },
+    });
   }
 
   return user;
@@ -56,10 +60,17 @@ export const deleteSavedArticleForUser = async (authorsId, articleId) => {
   const user = await UsersCollection.findById(authorsId);
   if (!user) return null;
 
+  const articleObjectId = new mongoose.Types.ObjectId(articleId);
+
   user.savedArticles = user.savedArticles.filter(
-    (id) => id.toString() !== articleId,
+    (id) => id.toString() !== articleObjectId,
   );
   await user.save();
+
+  await ArticlesCollection.findByIdAndUpdate(articleObjectId, {
+      $inc: { rate: -1 },
+    });
+
 
   return user;
 };
