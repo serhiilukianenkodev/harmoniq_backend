@@ -3,8 +3,7 @@ tags:
 summary: Get list of articles
 operationId: getArticles
 description: 'Get list of articles with parination'
-security:
-  - bearerAuth: []
+security: []
 parameters:
   - in: query
     name: page

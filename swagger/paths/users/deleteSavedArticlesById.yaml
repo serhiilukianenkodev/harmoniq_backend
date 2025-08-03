@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Authors
 summary: Delete user's saved article by id
 operationId: removeSavedArticleByAuthorId
 description: "Delete user's saved article by id"

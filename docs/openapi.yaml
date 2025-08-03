@@ -11,8 +11,8 @@ tags:
     description: Operations about articles.
   - name: Auth
     description: Auth operations.
-  - name: Users
-    description: Operations about users/author.
+  - name: Authors
+    description: Operations about authors.
 servers:
   # - url: http://localhost:3000
   - url: https://harmoniq-backend-qo0h.onrender.com

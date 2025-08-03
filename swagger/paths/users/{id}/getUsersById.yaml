@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Authors
 summary: Get user/author by id
 operationId: getUserById
 description: 'Get user/author by id'

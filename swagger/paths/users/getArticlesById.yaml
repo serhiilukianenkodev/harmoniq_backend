@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Authors
 summary: Get own articles
 operationId: getOwnArticlesByAuthorId
 description: 'Get own articles'

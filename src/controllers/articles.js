@@ -13,11 +13,12 @@ import { getEnvVar } from '../utils/getEnvVar.js';
 import { formatDate } from '../utils/formatDate.js';
 
 export const getArticlesController = async (req, res) => {
-  const { page, perPage } = parsePaginationParams(req.query);
+  const { page, perPage, filter } = parsePaginationParams(req.query);
 
   const articles = await getAllArticles({
     page,
     perPage,
+    filter,
   });
 
   res.json({

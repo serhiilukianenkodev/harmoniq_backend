@@ -1,5 +1,5 @@
 tags:
-  - Users
+  - Authors
 summary: Add user's avatar photo
 operationId: postUserAvatarPhoto
 description: "Add user's avatar photo"

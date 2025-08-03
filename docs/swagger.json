@@ -24,8 +24,8 @@
       "description": "Auth operations."
     },
     {
-      "name": "Users",
-      "description": "Operations about users/author."
+      "name": "Authors",
+      "description": "Operations about authors."
     }
   ],
   "paths": {
@@ -379,11 +379,7 @@
         "summary": "Get list of articles",
         "operationId": "getArticles",
         "description": "Get list of articles with parination",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "parameters": [
           {
             "in": "query",
@@ -490,11 +486,7 @@
         "summary": "Get article by id",
         "operationId": "getArticleById",
         "description": "Get article by id",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+        "security": [],
         "parameters": [
           {
             "in": "path",
@@ -667,7 +659,7 @@
     "/authors": {
       "get": {
         "tags": [
-          "Users"
+          "Authors"
         ],
         "summary": "Get all users/authors",
         "operationId": "getAllUsers",
@@ -774,7 +766,7 @@
     "/authors/{id}": {
       "get": {
         "tags": [
-          "Users"
+          "Authors"
         ],
         "summary": "Get user/author by id",
         "operationId": "getUserById",
@@ -832,7 +824,7 @@
     "/authors/saved-articles": {
       "get": {
         "tags": [
-          "Users"
+          "Authors"
         ],
         "summary": "Get user's saved article",
         "operationId": "getSavedArticlesByAuthorId",
@@ -884,7 +876,7 @@
     "/authors/saved-articles/{id}": {
       "patch": {
         "tags": [
-          "Users"
+          "Authors"
         ],
         "summary": "Patch user's saved article by id",
         "operationId": "saveArticleByAuthorId",
@@ -945,7 +937,7 @@
       },
       "delete": {
         "tags": [
-          "Users"
+          "Authors"
         ],
         "summary": "Delete user's saved article by id",
         "operationId": "removeSavedArticleByAuthorId",
@@ -982,7 +974,7 @@
     "/authors/{id}/articles": {
       "get": {
         "tags": [
-          "Users"
+          "Authors"
         ],
         "summary": "Get own articles",
         "operationId": "getOwnArticlesByAuthorId",
@@ -1038,7 +1030,7 @@
     "/user/photo": {
       "post": {
         "tags": [
-          "Users"
+          "Authors"
         ],
         "summary": "Add user's avatar photo",
         "operationId": "postUserAvatarPhoto",
