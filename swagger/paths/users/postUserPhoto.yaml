@@ -1,20 +1,25 @@
 tags:
   - Authors
-summary: Patch user's saved article by id
-operationId: saveArticleByAuthorId
-description: "Update user's saved article by id"
+summary: Add user's avatar photo
+operationId: postUserAvatarPhoto
+description: "Add user's avatar photo"
 security:
   - bearerAuth: []
-parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
-      example: '688507eb52768403f159c9c2'
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - photo
+        properties:
+          photo:
+            description: "User's avatar photo"
+            type: string
+            format: binary
 responses:
   '200':
-    description: 'Article added to saved list!'
+    description: 'User avatar photo added successfully'
     content:
       application/json:
         schema:
@@ -29,7 +34,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Article added to saved list!
+              example: Successfully added user avatar photo!
             data:
               type: object
               $ref: ../../components/schemas/users.yaml

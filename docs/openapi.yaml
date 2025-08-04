@@ -11,8 +11,8 @@ tags:
     description: Operations about articles.
   - name: Auth
     description: Auth operations.
-  - name: Users
-    description: Operations about users/author.
+  - name: Authors
+    description: Operations about authors.
 servers:
   # - url: http://localhost:3000
   - url: https://harmoniq-backend-qo0h.onrender.com
@@ -29,12 +29,6 @@ paths:
   /auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refresh.yaml
-  /auth/send-reset-email:
-    post:
-      $ref: ../swagger/paths/auth/send-reset-email.yaml
-  /auth/reset-pwd:
-    post:
-      $ref: ../swagger/paths/auth/reset-pwd.yaml
 
   /articles:
     post:
@@ -54,10 +48,10 @@ paths:
       $ref: ../swagger/paths/users/getAllUsers.yaml
   /authors/{id}:
     get:
-      $ref: ../swagger/paths/users/getUsersById.yaml
+      $ref: ../swagger/paths/users/{id}/getUsersById.yaml
   /authors/saved-articles:
     get:
-      $ref: ../swagger/paths/users/getSavedArticlesById.yaml
+      $ref: ../swagger/paths/users/{id}/getSavedArticlesById.yaml
   /authors/saved-articles/{id}:
     patch:
       $ref: ../swagger/paths/users/patchSavedArticlesById.yaml
@@ -66,6 +60,9 @@ paths:
   /authors/{id}/articles:
     get:
       $ref: ../swagger/paths/users/getArticlesById.yaml
+  /user/photo:
+    post:
+      $ref: ../swagger/paths/users/postUserPhoto.yaml
 
 components:
   securitySchemes:

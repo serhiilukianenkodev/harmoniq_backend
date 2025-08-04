@@ -1,10 +1,9 @@
 tags:
-  - Users
+  - Authors
 summary: Get all users/authors
 operationId: getAllUsers
 description: 'Get all users'
-security:
-  - bearerAuth: []
+security: []
 parameters:
   - in: query
     name: page
@@ -72,4 +71,4 @@ responses:
                   type: boolean
                   example: true
   '404':
-    $ref: ../../components/responses/401.yaml
+    $ref: ../../components/responses/404.yaml

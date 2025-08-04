@@ -1,15 +1,19 @@
+import createHttpError from 'http-errors';
 import { ArticlesCollection } from '../db/models/article.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllArticles = async ({ page = 1, perPage = 12 }) => {
+export const getAllArticles = async ({ page = 1, perPage = 12, filter }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = ArticlesCollection.find();
+  const articlesQuery = ArticlesCollection.find();
+  if (filter === 'Popular') {
+    articlesQuery.sort({ rate: 'desc' });
+  }
 
   const [articlesCount, articles] = await Promise.all([
     ArticlesCollection.find().countDocuments(),
-    contactsQuery.skip(skip).limit(limit).exec(),
+    articlesQuery.skip(skip).limit(limit).exec(),
   ]);
 
   const paginationData = calculatePaginationData(articlesCount, perPage, page);
@@ -46,7 +50,7 @@ export const updateArticle = async (
   options = {},
 ) => {
   const rawResult = await ArticlesCollection.findOneAndUpdate(
-    { _id: articleId, ownerId: userId },
+    { _id: articleId },
     payload,
     {
       new: true,
@@ -54,6 +58,10 @@ export const updateArticle = async (
       ...options,
     },
   );
+  const article = rawResult.value;
+  if (article.ownerId.toString() !== userId.toString()) {
+    throw createHttpError(403, 'You are not allowed to update this article');
+  }
 
   if (!rawResult || !rawResult.value) return null;
 

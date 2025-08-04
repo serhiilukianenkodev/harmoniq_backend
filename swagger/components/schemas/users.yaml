@@ -30,3 +30,7 @@ properties:
     description: "User's change date"
     type: string
     example: '2025-07-25'
+  avatarUrl:
+    description: "User's avatar URL"
+    type: string
+    example: 'https://example.com/avatar.jpg'

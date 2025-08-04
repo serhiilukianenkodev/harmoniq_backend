@@ -8,7 +8,7 @@ const usersSchema = new Schema(
     savedArticles: [{ type: Schema.Types.ObjectId, ref: 'articles' }],
     createdAt: { type: Date },
     updatedAt: { type: Date },
-    photo: { type: String, required: false, default: null },
+    avatarUrl: { type: String, required: false, default: null },
   },
   { timestamps: true, versionKey: false },
 );

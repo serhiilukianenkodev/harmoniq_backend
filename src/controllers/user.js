@@ -16,7 +16,7 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 
 export const getAllUsersController = async (req, res) => {
-  const { page, perPage } = parsePaginationParams(req.query);
+  const { page, perPage = 20 } = parsePaginationParams(req.query);
 
   const users = await getAllUsers({
     page,
