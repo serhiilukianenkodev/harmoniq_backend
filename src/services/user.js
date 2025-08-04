@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { ArticlesCollection } from '../db/models/article.js';
 import { UsersCollection } from '../db/models/user.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
@@ -61,16 +62,17 @@ export const deleteSavedArticleForUser = async (authorsId, articleId) => {
   if (!user) return null;
 
   const articleObjectId = new mongoose.Types.ObjectId(articleId);
-
+  if (!user.savedArticles.includes(articleObjectId)) {
+    throw createHttpError(404, 'Article not found in saved list');
+  }
   user.savedArticles = user.savedArticles.filter(
-    (id) => id.toString() !== articleObjectId,
+    (id) => id.toString() !== articleId.toString(),
   );
   await user.save();
 
   await ArticlesCollection.findByIdAndUpdate(articleObjectId, {
-      $inc: { rate: -1 },
-    });
-
+    $inc: { rate: -1 },
+  });
 
   return user;
 };
