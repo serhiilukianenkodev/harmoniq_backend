@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { ArticlesCollection } from '../db/models/article.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
@@ -49,7 +50,7 @@ export const updateArticle = async (
   options = {},
 ) => {
   const rawResult = await ArticlesCollection.findOneAndUpdate(
-    { _id: articleId, ownerId: userId },
+    { _id: articleId },
     payload,
     {
       new: true,
@@ -57,6 +58,10 @@ export const updateArticle = async (
       ...options,
     },
   );
+  const article = rawResult.value;
+  if (article.ownerId.toString() !== userId.toString()) {
+    throw createHttpError(403, 'You are not allowed to update this article');
+  }
 
   if (!rawResult || !rawResult.value) return null;
 

@@ -11,6 +11,7 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 import { saveFileToUploadDir } from '../utils/saveFileToUploadDir.js';
 import { getEnvVar } from '../utils/getEnvVar.js';
 import { formatDate } from '../utils/formatDate.js';
+import { SessionsCollection } from '../db/models/session.js';
 
 export const getArticlesController = async (req, res) => {
   const { page, perPage, filter } = parsePaginationParams(req.query);
@@ -84,8 +85,9 @@ export const deleteArticleController = async (req, res, next) => {
 
 export const patchArticleController = async (req, res, next) => {
   const { articleId } = req.params;
-  console.log('🚀 ~ patchArticleController ~ req.params:', req.params);
-  const userId = req.user._id;
+  const sessionId = req.cookies.sessionId;
+  const session = await SessionsCollection.findOne({ _id: sessionId });
+  const userId = session.userId;
   const photo = req.file;
   let photoUrl;
 
