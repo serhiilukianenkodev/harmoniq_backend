@@ -49,7 +49,8 @@ export const getSavedArticlesByAuthorIdController = async (req, res) => {
   const sessionId = req.cookies.sessionId;
   const session = await SessionsCollection.findOne({ _id: sessionId });
   const userId = session.userId;
-  const user = await getSavedArticles(userId);
+  const { page, perPage = 20 } = parsePaginationParams(req.query);
+  const user = await getSavedArticles(userId, page, perPage);
 
   if (!user) {
     throw createHttpError(404, 'User not found');
@@ -67,6 +68,7 @@ export const saveArticleByAuthorIdController = async (req, res) => {
   const session = await SessionsCollection.findOne({ _id: sessionId });
   const userId = session.userId;
   const { articleId } = req.params;
+
   const updatedUser = await addSavedArticleForUser(userId, articleId);
 
   if (!updatedUser) throw createHttpError(404, 'User not found');
@@ -95,7 +97,8 @@ export const removeSavedArticleByAuthorIdController = async (req, res) => {
 
 export const getOwnArticlesByAuthorIdController = async (req, res) => {
   const { authorsId } = req.params;
-  const user = await getOwnArticles(authorsId);
+  const { page, perPage = 20 } = parsePaginationParams(req.query);
+  const user = await getOwnArticles(authorsId, page, perPage);
 
   if (!user) {
     throw createHttpError(404, 'User not found');

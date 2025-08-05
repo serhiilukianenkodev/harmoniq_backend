@@ -8,11 +8,11 @@ export const getAllUsers = async ({ page = 1, perPage = 20 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const contactsQuery = UsersCollection.find();
+  const usersQuery = UsersCollection.find();
 
   const [usersCount, users] = await Promise.all([
     UsersCollection.find().countDocuments(),
-    contactsQuery.skip(skip).limit(limit).exec(),
+    usersQuery.skip(skip).limit(limit).exec(),
   ]);
 
   const paginationData = calculatePaginationData(usersCount, perPage, page);
@@ -28,16 +28,40 @@ export const getUserById = async (authorsId) => {
   return user;
 };
 
-export const getSavedArticles = async (authorsId) => {
-  const user = await UsersCollection.findById(authorsId).populate(
+export const getSavedArticles = async (authorsId, { page = 1, perPage = 20 }) => {
+
+const user = await UsersCollection.findById(authorsId).populate(
     'savedArticles',
   );
-  return user.savedArticles;
+
+const savedArticles = user.savedArticles;
+const totalItems = savedArticles.length;
+const skip = (page - 1) * perPage;
+
+const paginatedArticles = savedArticles.slice(skip, skip + perPage);
+
+const paginationData = calculatePaginationData(totalItems, perPage, page);
+
+return  {paginatedArticles,
+  ...paginationData,
+  };
 };
 
-export const getOwnArticles = async (authorsId) => {
+export const getOwnArticles = async (authorsId, { page = 1, perPage = 20 }) => {
+
   const articles = await ArticlesCollection.find({ ownerId: authorsId });
-  return { articles };
+
+  const totalItems = articles.length;
+  const skip = (page - 1) * perPage;
+
+const paginatedOwnArticles = articles.slice(skip, skip + perPage);
+
+const paginationData = calculatePaginationData(totalItems, perPage, page);
+
+
+  return {paginatedOwnArticles,
+    ...paginationData,
+  }
 };
 
 export const addSavedArticleForUser = async (authorsId, articleId) => {
