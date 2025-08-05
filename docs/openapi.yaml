@@ -53,13 +53,13 @@ paths:
     get:
       $ref: ../swagger/paths/users/{id}/getSavedArticlesById.yaml
   /authors/saved-articles/{id}:
-    patch:
-      $ref: ../swagger/paths/users/patchSavedArticlesById.yaml
+    post:
+      $ref: ../swagger/paths/users/{id}/postSavedArticlesById.yaml
     delete:
-      $ref: ../swagger/paths/users/deleteSavedArticlesById.yaml
+      $ref: ../swagger/paths/users/{id}/deleteSavedArticlesById.yaml
   /authors/{id}/articles:
     get:
-      $ref: ../swagger/paths/users/getArticlesById.yaml
+      $ref: ../swagger/paths/users/{id}/getArticlesById.yaml
   /user/photo:
     post:
       $ref: ../swagger/paths/users/postUserPhoto.yaml

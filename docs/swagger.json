@@ -874,13 +874,13 @@
       }
     },
     "/authors/saved-articles/{id}": {
-      "patch": {
+      "post": {
         "tags": [
           "Authors"
         ],
-        "summary": "Patch user's saved article by id",
+        "summary": "Post user's saved article by id",
         "operationId": "saveArticleByAuthorId",
-        "description": "Update user's saved article by id",
+        "description": "Added/Update user's saved article by id",
         "security": [
           {
             "bearerAuth": []
