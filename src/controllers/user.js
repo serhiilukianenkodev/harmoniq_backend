@@ -49,7 +49,7 @@ export const getSavedArticlesByAuthorIdController = async (req, res) => {
   const sessionId = req.cookies.sessionId;
   const session = await SessionsCollection.findOne({ _id: sessionId });
   const userId = session.userId;
-  const { page, perPage = 20 } = parsePaginationParams(req.query);
+  const { page, perPage = 12 } = parsePaginationParams(req.query);
   const user = await getSavedArticles(userId, page, perPage);
 
   if (!user) {
@@ -97,7 +97,7 @@ export const removeSavedArticleByAuthorIdController = async (req, res) => {
 
 export const getOwnArticlesByAuthorIdController = async (req, res) => {
   const { authorsId } = req.params;
-  const { page, perPage = 20 } = parsePaginationParams(req.query);
+  const { page, perPage = 12 } = parsePaginationParams(req.query);
   const user = await getOwnArticles(authorsId, page, perPage);
 
   if (!user) {
