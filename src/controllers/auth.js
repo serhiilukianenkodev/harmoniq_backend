@@ -7,6 +7,19 @@ import { refreshUsersSession } from '../services/auth.js';
 export const registerUserController = async (req, res) => {
   const { user, session } = await registerUser(req.body);
 
+  res.cookie('refreshToken', session.refreshToken, {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+    expires: new Date(Date.now() + THIRTY_DAYS),
+  });
+  res.cookie('sessionId', session._id, {
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+    expires: new Date(Date.now() + THIRTY_DAYS),
+  });
+
   res.status(201).json({
     status: 201,
     message: 'Successfully registered a user!',
